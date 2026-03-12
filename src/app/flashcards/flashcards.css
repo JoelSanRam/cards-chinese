@@ -1,0 +1,380 @@
+:host {
+  display: block;
+  height: 100dvh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.flashcards-layout {
+  display: flex;
+  height: 100dvh;
+  background: #f8fafc;
+  outline: none;
+}
+
+/* ── Mobile header (hidden on desktop) ── */
+.mobile-header {
+  display: none;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 260px;
+  background: #1e293b;
+  color: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.sidebar-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding: 1.5rem 1.25rem 1rem;
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: #e2e8f0;
+  border-bottom: 1px solid #334155;
+}
+
+.lesson-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 2px;
+}
+
+.lesson-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 0.875rem;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.lesson-btn:hover {
+  background: #334155;
+  color: #e2e8f0;
+}
+
+.lesson-btn.active {
+  background: #0d9488;
+  color: #fff;
+}
+
+.lesson-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.375rem;
+  background: rgba(255, 255, 255, 0.08);
+  font-weight: 600;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.lesson-btn.active .lesson-number {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lesson-label {
+  flex: 1;
+  font-weight: 500;
+}
+
+.lesson-count {
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+/* ── Main content ── */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.lesson-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 480px;
+  margin-bottom: 2rem;
+}
+
+.lesson-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.card-counter {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 600;
+  background: #e2e8f0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+}
+
+/* ── Card ── */
+.card-container {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 420px;
+  height: 320px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card.no-transition {
+  transition: none;
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  border-radius: 1.25rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.07),
+    0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.card-front {
+  background: linear-gradient(145deg, #0d9488, #0f766e);
+  color: #fff;
+}
+
+.card-back {
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  transform: rotateY(180deg);
+  gap: 0.75rem;
+}
+
+.hanzi-large {
+  font-size: 7rem;
+  font-weight: 300;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.hanzi-small {
+  font-size: 3rem;
+  font-weight: 400;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.pinyin {
+  font-size: 1.5rem;
+  color: #0d9488;
+  font-weight: 500;
+}
+
+.significado {
+  font-size: 1.125rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.flip-hint {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 0 0 1.5rem;
+}
+
+/* ── Navigation ── */
+.card-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background: #fff;
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.nav-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* ── Progress bar ── */
+.progress-bar-track {
+  width: 100%;
+  max-width: 480px;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: #0d9488;
+  border-radius: 9999px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Menu overlay ── */
+.menu-overlay {
+  display: none;
+}
+
+/* ── Mobile responsive ── */
+@media (max-width: 768px) {
+  .flashcards-layout {
+    flex-direction: column;
+    height: 100dvh;
+  }
+
+  /* Mobile top bar */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: #1e293b;
+    color: #f1f5f9;
+    flex-shrink: 0;
+    z-index: 30;
+  }
+
+  .hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #e2e8f0;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.375rem;
+    transition: background 0.15s ease;
+  }
+
+  .hamburger-btn:hover {
+    background: #334155;
+  }
+
+  .mobile-title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .mobile-counter {
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+  }
+
+  /* Sidebar as drawer */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .menu-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 35;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Desktop header hidden on mobile (shown in mobile-header instead) */
+  .lesson-header {
+    display: none;
+  }
+
+  .main-content {
+    padding: 1.25rem;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .card-container {
+    height: 280px;
+  }
+
+  .hanzi-large {
+    font-size: 5rem;
+  }
+
+  .hanzi-small {
+    font-size: 2.5rem;
+  }
+}

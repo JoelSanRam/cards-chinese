@@ -1,0 +1,75 @@
+import { Component, computed, signal } from '@angular/core';
+import { LESSONS } from '../data/vocabulary';
+
+@Component({
+  selector: 'app-flashcards',
+  templateUrl: './flashcards.html',
+  styleUrl: './flashcards.css',
+})
+export class Flashcards {
+  protected readonly lessons = LESSONS;
+  protected readonly currentLessonIndex = signal(0);
+  protected readonly currentCardIndex = signal(0);
+  protected readonly flipped = signal(false);
+  protected readonly menuOpen = signal(false);
+  protected readonly skipTransition = signal(false);
+
+  protected readonly currentLesson = computed(() => this.lessons[this.currentLessonIndex()]);
+  protected readonly cards = computed(() => this.currentLesson().cards);
+  protected readonly currentCard = computed(() => this.cards()[this.currentCardIndex()]);
+  protected readonly totalCards = computed(() => this.cards().length);
+
+  toggleMenu() {
+    this.menuOpen.update((v) => !v);
+  }
+
+  selectLesson(index: number) {
+    this.switchCard(() => {
+      this.currentLessonIndex.set(index);
+      this.currentCardIndex.set(0);
+    });
+    this.menuOpen.set(false);
+  }
+
+  toggleFlip() {
+    this.flipped.update((v) => !v);
+  }
+
+  prevCard() {
+    if (this.currentCardIndex() > 0) {
+      this.switchCard(() => this.currentCardIndex.update((i) => i - 1));
+    }
+  }
+
+  nextCard() {
+    if (this.currentCardIndex() < this.totalCards() - 1) {
+      this.switchCard(() => this.currentCardIndex.update((i) => i + 1));
+    }
+  }
+
+  private switchCard(changeFn: () => void) {
+    this.skipTransition.set(true);
+    this.flipped.set(false);
+    changeFn();
+    requestAnimationFrame(() => this.skipTransition.set(false));
+  }
+
+  onKeydown(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'ArrowLeft':
+        this.prevCard();
+        break;
+      case 'ArrowRight':
+        this.nextCard();
+        break;
+      case ' ':
+      case 'Enter':
+        event.preventDefault();
+        this.toggleFlip();
+        break;
+      case 'Escape':
+        this.menuOpen.set(false);
+        break;
+    }
+  }
+}
