@@ -10,7 +10,7 @@
         }
       </svg>
     </button>
-    <span class="mobile-title">{{ currentLesson().label }}</span>
+    <span class="mobile-title">{{ currentBook().label }} · {{ currentLesson().label }}</span>
     <span class="card-counter mobile-counter">{{ currentCardIndex() + 1 }} / {{ totalCards() }}</span>
   </header>
 
@@ -21,9 +21,24 @@
 
   <!-- Sidebar -->
   <aside class="sidebar" [class.open]="menuOpen()">
-    <h2 class="sidebar-title">汉语教程 1A</h2>
+    <h2 class="sidebar-title">汉语教程</h2>
+
+    <!-- Book selector -->
+    <div class="book-selector">
+      @for (book of books; track book.id; let i = $index) {
+        <button
+          class="book-btn"
+          [class.active]="currentBookIndex() === i"
+          (click)="selectBook(i)"
+        >
+          {{ book.id }}
+        </button>
+      }
+    </div>
+
+    <!-- Lessons of selected book -->
     <nav class="lesson-nav">
-      @for (lesson of lessons; track lesson.key; let i = $index) {
+      @for (lesson of currentBook().lessons; track lesson.key; let i = $index) {
         <button
           class="lesson-btn"
           [class.active]="currentLessonIndex() === i"
@@ -40,7 +55,7 @@
   <!-- Main content -->
   <main class="main-content">
     <header class="lesson-header">
-      <h1>{{ currentLesson().label }}</h1>
+      <h1>{{ currentBook().label }} · {{ currentLesson().label }}</h1>
       <span class="card-counter">{{ currentCardIndex() + 1 }} / {{ totalCards() }}</span>
     </header>
 

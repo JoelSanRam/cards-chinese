@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { LESSONS } from '../data/vocabulary';
+import { BOOKS } from '../data/vocabulary';
 
 @Component({
   selector: 'app-flashcards',
@@ -7,20 +7,33 @@ import { LESSONS } from '../data/vocabulary';
   styleUrl: './flashcards.css',
 })
 export class Flashcards {
-  protected readonly lessons = LESSONS;
+  protected readonly books = BOOKS;
+  protected readonly currentBookIndex = signal(0);
   protected readonly currentLessonIndex = signal(0);
-  protected readonly currentCardIndex = signal(0);
   protected readonly flipped = signal(false);
   protected readonly menuOpen = signal(false);
   protected readonly skipTransition = signal(false);
 
-  protected readonly currentLesson = computed(() => this.lessons[this.currentLessonIndex()]);
+  protected readonly currentBook = computed(() => this.books[this.currentBookIndex()]);
+  protected readonly currentLesson = computed(
+    () => this.currentBook().lessons[this.currentLessonIndex()]
+  );
   protected readonly cards = computed(() => this.currentLesson().cards);
   protected readonly currentCard = computed(() => this.cards()[this.currentCardIndex()]);
+  protected readonly currentCardIndex = signal(0);
   protected readonly totalCards = computed(() => this.cards().length);
 
   toggleMenu() {
     this.menuOpen.update((v) => !v);
+  }
+
+  selectBook(index: number) {
+    this.switchCard(() => {
+      this.currentBookIndex.set(index);
+      this.currentLessonIndex.set(0);
+      this.currentCardIndex.set(0);
+    });
+    this.menuOpen.set(false);
   }
 
   selectLesson(index: number) {
