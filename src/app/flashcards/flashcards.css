@@ -39,22 +39,45 @@
 
 .book-selector {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
+  flex-direction: column;
+  gap: 1rem;
   padding: 0.75rem 1rem;
   border-bottom: 1px solid #334155;
 }
 
+.book-category {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.category-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.375rem;
+}
+
 .book-btn {
-  padding: 0.375rem 0.625rem;
+  padding: 0.5rem 0.375rem;
   background: rgba(255, 255, 255, 0.08);
   border: none;
   border-radius: 0.375rem;
   color: #94a3b8;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .book-btn:hover {
@@ -168,7 +191,7 @@
   perspective: 1000px;
   width: 100%;
   max-width: 420px;
-  height: 320px;
+  height: 420px;
   cursor: pointer;
   margin-bottom: 1rem;
 }
@@ -241,15 +264,110 @@
   font-weight: 500;
 }
 
+/* ── Ejemplo section ── */
+.ejemplo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  width: 90%;
+}
+
+.ejemplo-divider {
+  width: 60px;
+  height: 2px;
+  background: #e2e8f0;
+  margin-bottom: 0.5rem;
+}
+
+.ejemplo-label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ejemplo-hanzi {
+  font-size: 1.25rem;
+  color: #1e293b;
+  font-weight: 400;
+  text-align: center;
+}
+
+.ejemplo-pinyin {
+  font-size: 0.875rem;
+  color: #0d9488;
+  font-weight: 500;
+  font-style: italic;
+  text-align: center;
+}
+
+.ejemplo-significado {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 400;
+  text-align: center;
+}
+
 .flip-hint {
   font-size: 0.8rem;
   color: #94a3b8;
   margin: 0 0 1.5rem;
 }
 
+/* ── Mini buttons navigation ── */
+.mini-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 720px;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.mini-card-btn {
+  padding: 0.375rem 0.625rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-width: 44px;
+  text-align: center;
+}
+
+.mini-card-btn:hover {
+  background: #f1f5f9;
+  border-color: #0d9488;
+  color: #0d9488;
+  transform: translateY(-1px);
+}
+
+.mini-card-btn.active {
+  background: #0d9488;
+  border-color: #0d9488;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(13, 148, 136, 0.2);
+}
+
 /* ── Navigation ── */
 .card-nav {
   display: flex;
+  align-items: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -282,6 +400,88 @@
 .nav-btn svg {
   width: 1rem;
   height: 1rem;
+}
+
+/* Jump controls */
+.jump-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jump-btn {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #64748b;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-width: 48px;
+}
+
+.jump-btn:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #0d9488;
+  color: #0d9488;
+}
+
+.jump-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.card-jump-input {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+.card-jump-input input {
+  width: 50px;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: center;
+  background: transparent;
+  -moz-appearance: textfield;
+}
+
+.card-jump-input input::-webkit-outer-spin-button,
+.card-jump-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-separator {
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.total-cards {
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* ── Progress bar ── */
@@ -409,5 +609,44 @@
 
   .hanzi-small {
     font-size: 2.5rem;
+  }
+
+  .jump-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card-jump-input input {
+    width: 40px;
+    font-size: 0.8125rem;
+  }
+
+  .jump-btn {
+    min-width: 42px;
+    padding: 0.45rem 0.625rem;
+    font-size: 0.75rem;
+  }
+
+  .card-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+  }
+
+  .mini-buttons-container {
+    max-width: 100%;
+    max-height: 120px;
+    padding: 0.75rem;
+    gap: 0.25rem;
+  }
+
+  .mini-card-btn {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.8125rem;
+    min-width: 38px;
   }
 }

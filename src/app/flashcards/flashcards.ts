@@ -60,6 +60,30 @@ export class Flashcards {
     }
   }
 
+  jumpCards(amount: number) {
+    const newIndex = this.currentCardIndex() + amount;
+    if (newIndex >= 0 && newIndex < this.totalCards()) {
+      this.switchCard(() => this.currentCardIndex.set(newIndex));
+    }
+  }
+
+  jumpToCard(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const cardNumber = parseInt(input.value, 10);
+    if (!isNaN(cardNumber) && cardNumber >= 1 && cardNumber <= this.totalCards()) {
+      this.switchCard(() => this.currentCardIndex.set(cardNumber - 1));
+    } else {
+      // Reset input to current card if invalid
+      input.value = (this.currentCardIndex() + 1).toString();
+    }
+  }
+
+  selectCard(index: number) {
+    if (index >= 0 && index < this.totalCards()) {
+      this.switchCard(() => this.currentCardIndex.set(index));
+    }
+  }
+
   private switchCard(changeFn: () => void) {
     this.skipTransition.set(true);
     this.flipped.set(false);

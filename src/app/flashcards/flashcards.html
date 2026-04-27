@@ -25,15 +25,41 @@
 
     <!-- Book selector -->
     <div class="book-selector">
-      @for (book of books; track book.id; let i = $index) {
-        <button
-          class="book-btn"
-          [class.active]="currentBookIndex() === i"
-          (click)="selectBook(i)"
-        >
-          {{ book.id }}
-        </button>
-      }
+      <!-- HSK 2.0 Section -->
+      <div class="book-category">
+        <span class="category-label">HSK 2.0</span>
+        <div class="book-grid">
+          @for (book of books; track book.id; let i = $index) {
+            @if (book.id.includes('_v2') || (!book.id.includes('_v2') && !book.id.includes('_v3') && !book.id.includes('HSK'))) {
+              <button
+                class="book-btn"
+                [class.active]="currentBookIndex() === i"
+                (click)="selectBook(i)"
+              >
+                {{ book.id }}
+              </button>
+            }
+          }
+        </div>
+      </div>
+
+      <!-- HSK 3.0 Section -->
+      <div class="book-category">
+        <span class="category-label">HSK 3.0</span>
+        <div class="book-grid">
+          @for (book of books; track book.id; let i = $index) {
+            @if (book.id.includes('_v3')) {
+              <button
+                class="book-btn"
+                [class.active]="currentBookIndex() === i"
+                (click)="selectBook(i)"
+              >
+                {{ book.label }}
+              </button>
+            }
+          }
+        </div>
+      </div>
     </div>
 
     <!-- Lessons of selected book -->
@@ -71,11 +97,35 @@
           <span class="hanzi-small">{{ currentCard().chino }}</span>
           <span class="pinyin">{{ currentCard().pinyin }}</span>
           <span class="significado">{{ currentCard().significado }}</span>
+
+          @if (currentCard().ejemplo) {
+            <div class="ejemplo-container">
+              <div class="ejemplo-divider"></div>
+              <span class="ejemplo-label">Ejemplo:</span>
+              <span class="ejemplo-hanzi">{{ currentCard().ejemplo?.chino }}</span>
+              <span class="ejemplo-pinyin">{{ currentCard().ejemplo?.pinyin }}</span>
+              <span class="ejemplo-significado">{{ currentCard().ejemplo?.significado }}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
 
     <p class="flip-hint">Toca la tarjeta para voltearla</p>
+
+    <!-- Mini buttons navigation -->
+    <div class="mini-buttons-container">
+      @for (card of cards(); track $index) {
+        <button
+          class="mini-card-btn"
+          [class.active]="currentCardIndex() === $index"
+          [title]="card.chino + ' (' + card.pinyin + ')'"
+          (click)="selectCard($index)"
+        >
+          {{ card.chino }}
+        </button>
+      }
+    </div>
 
     <!-- Navigation -->
     <div class="card-nav">
@@ -87,6 +137,41 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         Anterior
       </button>
+
+      <!-- Jump controls -->
+      <div class="jump-controls">
+        <button
+          class="jump-btn"
+          [disabled]="currentCardIndex() < 10"
+          (click)="jumpCards(-10)"
+          title="Retroceder 10 tarjetas"
+        >
+          -10
+        </button>
+        <div class="card-jump-input">
+          <label for="cardJump" class="visually-hidden">Ir a tarjeta</label>
+          <input
+            id="cardJump"
+            type="number"
+            [value]="currentCardIndex() + 1"
+            [min]="1"
+            [max]="totalCards()"
+            (change)="jumpToCard($event)"
+            (click)="$event.stopPropagation()"
+          />
+          <span class="input-separator">/</span>
+          <span class="total-cards">{{ totalCards() }}</span>
+        </div>
+        <button
+          class="jump-btn"
+          [disabled]="currentCardIndex() >= totalCards() - 10"
+          (click)="jumpCards(10)"
+          title="Avanzar 10 tarjetas"
+        >
+          +10
+        </button>
+      </div>
+
       <button
         class="nav-btn"
         [disabled]="currentCardIndex() === totalCards() - 1"
