@@ -1766,12 +1766,12 @@ export const LESSONS: Lesson[] = [
 
 // Libros del curso 汉语教程
 const HANYU_JIAOCHENG_BOOKS: Book[] = [
- /*  { id: '1A', label: '汉语教程 1A', lessons: LESSONS.slice(0, 15).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
+ { id: '1A', label: '汉语教程 1A', lessons: LESSONS.slice(0, 15).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
   { id: '1B', label: '汉语教程 1B', lessons: LESSONS.slice(15, 30).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
   { id: '2A', label: '汉语教程 2A', lessons: LESSONS.slice(30, 45).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
   { id: '2B', label: '汉语教程 2B', lessons: LESSONS.slice(45, 60).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
   { id: '3A', label: '汉语教程 3A', lessons: LESSONS.slice(60, 75).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
-  { id: '3B', label: '汉语教程 3B', lessons: LESSONS.slice(75, 90).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) }, */
+  { id: '3B', label: '汉语教程 3B', lessons: LESSONS.slice(75, 90).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
 ];
 
 // Combinar todos los libros: 汉语教程 + HSK 3.0
