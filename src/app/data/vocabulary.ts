@@ -1,4 +1,5 @@
 import { HSK_BOOKS } from './hsk-vocabulary';
+import { HSK_2_0_BOOKS } from './hsk-2.0-vocabulary';
 
 export interface ExampleSentence {
   chino: string;
@@ -1764,15 +1765,15 @@ export const LESSONS: Lesson[] = [
   },
 ];
 
-// Libros del curso 汉语教程
+// Libros del curso 汉语教程 (caracteres individuales del libro)
 const HANYU_JIAOCHENG_BOOKS: Book[] = [
- { id: '1A', label: '汉语教程 1A', lessons: LESSONS.slice(0, 15).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
-  { id: '1B', label: '汉语教程 1B', lessons: LESSONS.slice(15, 30).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
-  { id: '2A', label: '汉语教程 2A', lessons: LESSONS.slice(30, 45).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
-  { id: '2B', label: '汉语教程 2B', lessons: LESSONS.slice(45, 60).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
-  { id: '3A', label: '汉语教程 3A', lessons: LESSONS.slice(60, 75).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
-  { id: '3B', label: '汉语教程 3B', lessons: LESSONS.slice(75, 90).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
+  { id: 'libro_1A', label: '📚 Libro 1A', lessons: LESSONS.slice(0, 15).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
+  { id: 'libro_1B', label: '📚 Libro 1B', lessons: LESSONS.slice(15, 30).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
+  { id: 'libro_2A', label: '📚 Libro 2A', lessons: LESSONS.slice(30, 45).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
+  { id: 'libro_2B', label: '📚 Libro 2B', lessons: LESSONS.slice(45, 60).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
+  { id: 'libro_3A', label: '📚 Libro 3A', lessons: LESSONS.slice(60, 75).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
+  { id: 'libro_3B', label: '📚 Libro 3B', lessons: LESSONS.slice(75, 90).map((l, i) => ({ ...l, label: `Lección ${i + 1}` })) },
 ];
 
-// Combinar todos los libros: 汉语教程 + HSK 3.0
-export const BOOKS: Book[] = [...HANYU_JIAOCHENG_BOOKS, ...HSK_BOOKS];
+// Combinar todos los libros: Caracteres del Libro → HSK 2.0 → HSK 3.0
+export const BOOKS: Book[] = [...HANYU_JIAOCHENG_BOOKS, ...HSK_2_0_BOOKS, ...HSK_BOOKS];
