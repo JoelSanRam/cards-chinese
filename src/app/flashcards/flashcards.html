@@ -25,18 +25,36 @@
 
     <!-- Book selector -->
     <div class="book-selector">
-      <!-- HSK 2.0 Section -->
+      <!-- Caracteres del Libro Section -->
       <div class="book-category">
-        <span class="category-label">HSK 2.0</span>
+        <span class="category-label">📚 Caracteres del Libro</span>
         <div class="book-grid">
           @for (book of books; track book.id; let i = $index) {
-            @if (book.id.includes('_v2') || (!book.id.includes('_v2') && !book.id.includes('_v3') && !book.id.includes('HSK'))) {
+            @if (book.id.startsWith('libro_')) {
               <button
                 class="book-btn"
                 [class.active]="currentBookIndex() === i"
                 (click)="selectBook(i)"
               >
-                {{ book.id }}
+                {{ book.label }}
+              </button>
+            }
+          }
+        </div>
+      </div>
+
+      <!-- HSK 2.0 Section -->
+      <div class="book-category">
+        <span class="category-label">🎯 HSK 2.0 (Listas Oficiales)</span>
+        <div class="book-grid">
+          @for (book of books; track book.id; let i = $index) {
+            @if (book.id.includes('_v2')) {
+              <button
+                class="book-btn"
+                [class.active]="currentBookIndex() === i"
+                (click)="selectBook(i)"
+              >
+                {{ book.label }}
               </button>
             }
           }
@@ -45,7 +63,7 @@
 
       <!-- HSK 3.0 Section -->
       <div class="book-category">
-        <span class="category-label">HSK 3.0</span>
+        <span class="category-label">✨ HSK 3.0 (Listas Oficiales)</span>
         <div class="book-grid">
           @for (book of books; track book.id; let i = $index) {
             @if (book.id.includes('_v3')) {
